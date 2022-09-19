@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+        header{
+            text-align: center;
+            background-color: gray;
+            color: wheat;
+        }
+    </style>
+    <script type="text/javascript">
+        let d = new Date(); //creating new date object
+        setInterval(()=>{
+            let hours = d.getHours();
+            let mins = d.getMinutes();
+            let seconds = d.getSeconds();
+            console.log(hours);
+            if (hours<10){
+                hours = "0" + hours;
+            }
+            if (mins<10){
+                mins = "0" + mins;
+            }
+            if (seconds<10){
+                seconds = "0" + seconds;
+            }
+
+            document.getElementById("clock").innerHTML = hours + ":" + mins + ":" + seconds
+        })
+
+    </script>
+  </head>
+
+  <body>
+    <header> The current time is...</header>
+    <h1 id = "clock"></h1>
+  </body>
+</html>

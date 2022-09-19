@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .send_btn {
+        float: right;
+        width: 20%;
+        padding: 1%;
+        background: black;
+        color: wheat;
+        font-size: 20px;
+        margin: 1%;
+      }
+    </style>
+
+    <script type ="text/javascript">
+        function date_differ(){
+            let d = new Date();
+            let inputDate = document.getElementById("date_select").value
+            let birthDate = new Date(inputDate);
+            var birthYear = birthDate.getFullYear();
+            var diff = Math.abs(d.getFullYear() - birthYear);
+            document.getElementById("display_agediff").innerHTML = "You are " + diff + " years old";
+        }
+    </script>
+
+</head>
+
+<body>
+<h1 id = "display_agediff"></h1>
+<input type="date" id = "date_select">
+<button class="send_btn" onclick="date_differ()">Confirm</button>
+
+</body>
+
+</html>
