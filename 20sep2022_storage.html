@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<script>
+    function setLocal(){
+        let local_msg = document.getElementById("message").value;
+        localStorage.setItem("message", local_msg);
+    }
+    function getLocal(){
+        console.log(localStorage.getItem("message"));
+    }
+    function setSession(){
+        let session_msg = document.getElementById("message").value;
+        sessionStorage.setItem("message", session_msg);
+    }
+    function getLocal(){
+        console.log(localStorage.getItem("message"));
+    }
+</script>
+</head>
+
+<body>
+
+    <div class="input_message">
+        <textarea name="" id="message" placeholder="Enter message"></textarea>
+    </div>
+
+    <button class="local_btn" onclick="setLocal()">Set Local</button>
+    <button class="session_btn" onclick="setSession()">Set Session</button>
+
+</body>
+
+</html>
