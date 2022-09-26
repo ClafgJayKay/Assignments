@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.heading_1{
+  background-color: rgb(206, 66, 66);
+  color: #fff;
+ 
+}
+.heading_2{
+  background-color: rgba(52, 170, 137, 0.546);
+  color: #fff;
+}
+.heading_3{
+  background-color: rgb(37, 41, 123);
+  color: #fff;
+}
