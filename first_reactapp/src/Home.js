@@ -4,6 +4,21 @@ import { useState } from "react"
 
 
 function Home(){
+        const showLastName=(obj)=>{
+        console.log(obj.last_name);}
+
+        const showFirstName=(obj)=>{
+        console.log(obj.first_name);}
+
+        const showEmail=(obj)=>{
+        console.log(obj.email);}
+
+        const showID=(obj)=>{
+        console.log(obj.id);}
+
+        const showImage=(obj)=>{
+        console.log(obj.avatar);}
+
         const[name,setName] = useState('');
         const[job,setJob] = useState('');
         const [userpostList, setUserPostList] = useState([]);
@@ -87,7 +102,7 @@ function Home(){
                         {(usergetList && usergetList.length <= 0 )?<h1>No User Found</h1>:''}
                         {
                             usergetList && usergetList.map((userGetObj,idx) => {
-                            return <div key={idx}> {userGetObj.first_name} {userGetObj.avatar} </div>
+                            return <div key={idx} onClick={(()=>showLastName(userGetObj))}> {userGetObj.first_name} {userGetObj.avatar} </div>
                         })
                         }
                     </div>
