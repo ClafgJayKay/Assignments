@@ -51,8 +51,7 @@ function Home(){
                     </div>
                     <input onChange= {(e) => setName(e.target.value)} type="text" placeholder="Enter name"/>
                     <input onChange= {(e) => setJob(e.target.value)} type="text" placeholder="Enter job"/>
-                    
-                    <button onClick={btn_click}> Click Me </button>
+
                     <h1>{name}{job}</h1>
 
                     <div><button onClick={postAPIResponse}>Click to send POST API response</button></div>
