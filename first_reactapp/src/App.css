@@ -50,3 +50,7 @@
   background-color: rgb(37, 41, 123);
   color: #fff;
 }
+
+li.active{
+  background-color: red;
+}

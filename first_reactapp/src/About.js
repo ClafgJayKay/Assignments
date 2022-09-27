@@ -14,7 +14,7 @@ function About(){
 
     return(
         <div>
-            <Header/>
+            <Header menuname='about'/>
             <h1>This is the header of the About Page</h1>
             <h2 className={headingClassName}>{name}</h2>
             <button onClick={()=>setHeadingClassName('heading_1')}>Heading Class 1</button>
