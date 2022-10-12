@@ -6,16 +6,17 @@ import com.oct2022.oct2022.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
+//import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     UserRepository userRepo;
 
-    public void retrieveUser(Integer id) throws Exception {
-        Optional<NewUserModel> user = userRepo.findById(id);
-        if(user.isPresent()){
-            return user.get();
+    public NewUserModel retrieveUser (Integer id) throws Exception {
+        Optional<NewUserModel> userModel = userRepo.findById(id);
+        if(userModel.isPresent()){
+            return userModel.get();
         }else{
             throw new Exception("No such user");
         }

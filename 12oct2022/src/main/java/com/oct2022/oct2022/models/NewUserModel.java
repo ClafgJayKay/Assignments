@@ -14,24 +14,26 @@ import javax.persistence.*;
 public class NewUserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    @Column(name="name")
+    int id;
+    @Column(name = "name")
     String name;
-    @Column(name="email")
+    @Column(name = "email")
     String email;
-    @Column(name="password")
+    @Column(name = "password")
     String password;
-    @Column(name="address")
+    @Column(name = "address")
     String address;
-    @Column(name="mobilenumber")
+    @Column(name = "mobilenumber")
     String mobilenumber;
 
-    public NewUserModel(Integer id, String name, String address, String email, String password, String mobilenumber) {
+    public NewUserModel(Integer id, String name, String email, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
         this.address = address;
-        this.mobilenumber = mobilenumber;
+    }
+    public NewUserModel(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 }

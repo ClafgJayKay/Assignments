@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -21,7 +22,7 @@ public class UserController {
     UserRepository userRepo;
 
     @GetMapping("user")
-    public ResponseEntity<?> getUser(@PathVariable Integer id) throws Exception {
+    public ResponseEntity<?> getUser(@PathVariable int id) throws Exception{
         try {
             NewUserModel user = userService.retrieveUser(id);
             return ResponseEntity.ok(user);
