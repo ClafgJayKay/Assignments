@@ -36,7 +36,7 @@ public class UserController {
     @GetMapping("/user/{user_id}")
     public ResponseEntity<?> getUser(@PathVariable Integer user_id) {
         HashMap<Integer, UserModel> myHashMap = new HashMap<>();
-        UserResponse generalResponse = new UserResponse();
+        UserResponse userResponse = new UserResponse();
 
         for (int i = 1; i <= 10; i++) {
             myHashMap.put(i, new UserModel("user: " + i, "password: " + i));
@@ -44,10 +44,30 @@ public class UserController {
 
         if (myHashMap.containsKey(user_id)) {
             generalResponse.setMessage("User exists");
-            return ResponseEntity.ok(generalResponse);
+            return ResponseEntity.ok(userResponse);
         } else {
             generalResponse.setMessage("User does not exist");
-            return ResponseEntity.badRequest().body(generalResponse);
+            return ResponseEntity.badRequest().body(userResponse);
         }
+    }
+
+    @PostMapping("/createUser")
+    public ResponseEntity<?> userCreate(){
+        UserResponse userResponse = new UserResponse();
+
+        userModel2Service.addUser2();
+
+        userResponse.setMessage("New user created");
+        return ResponseEntity.ok(userResponse);
+    }
+
+    @GetMapping("/retrieveUser")
+    public ResponseEntity<?> userGet(){
+        UserResponse userResponse = new UserResponse();
+
+        userModel2Service.getAllUser();
+
+        userResponse.setMessage("Retrieving user list");
+        return ResponseEntity.ok(userResponse);
     }
 }
