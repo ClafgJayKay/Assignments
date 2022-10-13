@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Configuration
 public class SpringCommonConfig implements WebMvcConfigurer {
     @Autowired
-    TokenInterceptor tokenInterceptor;
+    TokenInterceptor token;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedOrigins("http://localhost:3000");
     }
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(tokenInterceptor);
+    public void addInterceptors(InterceptorRegistry interceptorregistry) {
+        interceptorregistry.addInterceptor(token);
     }
 }
