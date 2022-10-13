@@ -10,16 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
 public class UserController {
-
     @Autowired
     UserService userService;
-    @Autowired
-    UserRepository userRepo;
 
     @GetMapping("user")
     public ResponseEntity<?> getUser(@PathVariable int id) throws Exception{
@@ -46,10 +42,10 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/{user_id}")
-    public ResponseEntity<?> getUser(@PathVariable Integer id) throws Exception {
+    @GetMapping("/user/{userid}")
+    public ResponseEntity<?> getUser(@PathVariable Integer userid) throws Exception {
         try {
-            NewUserModel user = userService.retrieveUser(id);
+            NewUserModel user = userService.retrieveUser(userid);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             UserResponse userResponse = new UserResponse();
@@ -70,12 +66,25 @@ public class UserController {
             return ResponseEntity.badRequest().body(userResponse);
         }
     }
-    @PostMapping("/delete/{userid}")
-    public ResponseEntity<?> deleteUser(@PathVariable Integer id){
+    @PostMapping("/deleteUser/{userid}")
+    public ResponseEntity<?> deleteUser(@PathVariable Integer userid){
         UserResponse userResponse = new UserResponse();
         try{
-            userService.deleteUser(id);
+            userService.deleteUser(userid);
             userResponse.setMessage("User deleted");
+            return ResponseEntity.ok(userResponse);
+        }catch (Exception e){
+            userResponse.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(userResponse);
+        }
+    }
+
+    @PostMapping("/updateUser/{userid}")
+    public ResponseEntity<?> updateUser(@PathVariable Integer userid, @RequestBody UserRequest userRequest){
+        UserResponse userResponse = new UserResponse();
+        try{
+            userService.updateUser(userid, userRequest);
+            userResponse.setMessage("User has been updated");
             return ResponseEntity.ok(userResponse);
         }catch (Exception e){
             userResponse.setMessage(e.getMessage());

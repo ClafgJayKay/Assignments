@@ -20,6 +20,9 @@ function Header(props){
             <li className={props.menuname =='home2'?"active":''} ><a href="home2">Home 2</a></li>
             <li className={props.menuname =='about'?"active":''} ><a href="about">About</a></li>
             <li className={props.menuname =='contacts'?"active":''} ><a href="contacts">Contacts</a></li>
+            <li className={props.current == "Login" ? "isActive" : ""}><a href="Login">Login</a></li>
+            <li className={props.current == "Register" ? "isActive" : ""}><a href="Register">Register</a></li>
+            <li className={props.current == "Update" ? "isActive" : ""}><a href="Update">Update</a></li>
             {isExist?<li><a href="#">Logout</a></li>:null}
 
         </ul>
