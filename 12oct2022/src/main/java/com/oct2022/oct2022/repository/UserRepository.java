@@ -8,9 +8,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<NewUserModel, Integer> {
-    @Query("SELECT user from NewUserModel user where email=?1 and password=?2")
+    @Query("SELECT user FROM NewUserModel user WHERE email=?1 and password=?2")
     Optional<NewUserModel> getUserByEmailAndPassword(String email, String password);
 
-    @Query("SELECT user from NewUserModel user where email = ?1")
+    @Query("SELECT user FROM NewUserModel user WHERE email = ?1")
     Optional<NewUserModel> getUserByEmail(String email);
 }
