@@ -1,6 +1,6 @@
 package com.oct2022.oct2022.configuration;
 
-import com.oct2022.oct2022.models.UserModelWithToken;
+
 import com.oct2022.oct2022.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -9,10 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Base64;
 
 public class TokenInterceptor implements HandlerInterceptor {
-
     @Autowired
     UserService userService;
 
