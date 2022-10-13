@@ -26,6 +26,7 @@ public class NewUserModel {
     @Column(name = "mobilenumber")
     String mobilenumber;
 
+
     public NewUserModel(Integer id, String name, String email, String address) {
         this.id = id;
         this.name = name;

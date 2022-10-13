@@ -1,5 +1,6 @@
 package com.oct2022.oct2022.controllers;
 
+import com.oct2022.oct2022.models.UserModelWithToken;
 import com.oct2022.oct2022.repository.UserRepository;
 import com.oct2022.oct2022.response.UserResponse;
 import com.oct2022.oct2022.models.NewUserModel;
@@ -21,16 +22,15 @@ public class UserController {
     @GetMapping("/user")
     public ResponseEntity<?> getAllUsers(){
         UserResponse userResponse = new UserResponse();
-        List<NewUserModel> myList = userService.getAllUsers();
-
+        List<UserModelWithToken> myList = userService.getAllUsers();
         userResponse.setMessage("Getting all users");
         return ResponseEntity.ok(myList);
     }
     @GetMapping("/user/{userid}")
     public ResponseEntity<?> getUser(@PathVariable Integer userid) throws Exception {
         try {
-            NewUserModel user = userService.retrieveUser(userid);
-            return ResponseEntity.ok(user);
+            UserModelWithToken userModelWithToken = userService.retrieveUser(userid);
+            return ResponseEntity.ok(userModelWithToken);
         } catch (Exception e) {
             UserResponse userResponse = new UserResponse();
             userResponse.setMessage(e.getMessage());
@@ -41,9 +41,9 @@ public class UserController {
     public ResponseEntity<?> loginValid(@RequestBody UserRequest userRequest) {
         UserResponse userResponse = new UserResponse();
         try {
-            Optional<NewUserModel> user = userService.loginValidation(userRequest);
+            Optional<UserModelWithToken> userModelWithToken = userService.loginValidation(userRequest);
 
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(userModelWithToken);
         } catch (Exception e) {
             userResponse.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(userResponse);
@@ -87,4 +87,29 @@ public class UserController {
             return ResponseEntity.badRequest().body(userResponse);
         }
     }
+    @PostMapping("/loginwithToken")
+    public ResponseEntity<?> loginwithToken(@RequestBody UserRequest userRequest){
+        UserResponse userResponse = new UserResponse();
+        try{
+            UserModelWithToken userModelWithToken = userService.loginwithToken(userRequest);
+            userResponse.setMessage("Login success");
+            return ResponseEntity.ok(userModelWithToken);
+        }catch (Exception e){
+            userResponse.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(userResponse);
+        }
+    }
+    @PostMapping("/logout/{userid}")
+    public ResponseEntity<?> logout(@PathVariable Integer userid){
+        UserResponse userResponse = new UserResponse();
+        try{
+            userService.logout(userid);
+            userResponse.setMessage("User logged out successfully");
+            return ResponseEntity.ok(userResponse);
+        }catch(Exception e){
+            userResponse.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(userResponse);
+        }
+    }
+
 }
