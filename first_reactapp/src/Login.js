@@ -11,9 +11,7 @@ function Login(){
     const loginBtn = () =>{
         
         let anObj = {"email": email, "password": password}
-        // console.log(email + " - " + password);
-
-        fetch("http://localhost:8080/login3",
+        fetch("http://localhost:8080/login",
         {
             method:"POST",
             body:JSON.stringify(anObj),
@@ -26,7 +24,7 @@ function Login(){
                 setOutput({});
                 throw res;
             }else{
-                setErrorObj("");
+                setErrObj("");
                 res.json().then(res2 => {console.log(res2); setOutput(res2);})
             }
         })
@@ -40,10 +38,10 @@ function Login(){
     return(
         <>
             <Header current = "Login"/>
-            <div className="container-fluid" style={{backgroundColor:"beige", padding:"1%"}}>
+            <div className="container-fluid" style={{backgroundColor:"white", padding:"1%"}}>
                 <div className="row row_main">
                 <h1>Login here...</h1>
-                    <div className="row" style={{backgroundColor:"gainsboro"}}>
+                    <div className="row" style={{backgroundColor:"white"}}>
                         <div className="row form-group">
                             <div class="row">
                                 <div className="col-2">

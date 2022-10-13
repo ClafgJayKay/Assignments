@@ -9,5 +9,5 @@ import lombok.*;
 @ToString
 
 public class UserResponse {
-    String  name, address, email, mobileNum, password, message;
+    String  name, address, email, mobilenumber, password, message;
 }

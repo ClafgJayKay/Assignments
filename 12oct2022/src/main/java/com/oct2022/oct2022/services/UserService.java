@@ -5,6 +5,8 @@ import com.oct2022.oct2022.repository.UserRepository;
 import com.oct2022.oct2022.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -12,6 +14,10 @@ public class UserService {
     @Autowired
     UserRepository userRepo;
 
+
+    public List<NewUserModel> getAllUsers(){
+        return userRepo.findAll();
+    }
     public NewUserModel retrieveUser(Integer id) throws Exception {
         Optional<NewUserModel> user = userRepo.findById(id);
         if (user.isPresent()) {
@@ -40,7 +46,7 @@ public class UserService {
             newUser.setPassword(userRequest.getPassword());
             newUser.setAddress(userRequest.getAddress());
             newUser.setEmail(userRequest.getEmail());
-            newUser.setMobilenumber(userRequest.getMobileNum());
+            newUser.setMobilenumber(userRequest.getMobilenumber());
             userRepo.save(newUser);
         }
     }
@@ -71,7 +77,7 @@ public class UserService {
                 user.setEmail(userRequest.getEmail());
                 user.setPassword(userRequest.getPassword());
                 user.setName(userRequest.getName());
-                user.setMobilenumber(userRequest.getMobileNum());
+                user.setMobilenumber(userRequest.getMobilenumber());
                 userRepo.save(user);
                 return true;
             } else {

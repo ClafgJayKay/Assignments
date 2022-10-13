@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,10 +18,18 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("user")
-    public ResponseEntity<?> getUser(@PathVariable int id) throws Exception{
+    @GetMapping("/user")
+    public ResponseEntity<?> getAllUsers(){
+        UserResponse userResponse = new UserResponse();
+        List<NewUserModel> myList = userService.getAllUsers();
+
+        userResponse.setMessage("Getting all users");
+        return ResponseEntity.ok(myList);
+    }
+    @GetMapping("/user/{userid}")
+    public ResponseEntity<?> getUser(@PathVariable Integer userid) throws Exception {
         try {
-            NewUserModel user = userService.retrieveUser(id);
+            NewUserModel user = userService.retrieveUser(userid);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             UserResponse userResponse = new UserResponse();
@@ -28,7 +37,6 @@ public class UserController {
             return ResponseEntity.badRequest().body(userResponse);
         }
     }
-
     @PostMapping("/login")
     public ResponseEntity<?> loginValid(@RequestBody UserRequest userRequest) {
         UserResponse userResponse = new UserResponse();
@@ -37,18 +45,6 @@ public class UserController {
 
             return ResponseEntity.ok(user);
         } catch (Exception e) {
-            userResponse.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(userResponse);
-        }
-    }
-
-    @GetMapping("/user/{userid}")
-    public ResponseEntity<?> getUser(@PathVariable Integer userid) throws Exception {
-        try {
-            NewUserModel user = userService.retrieveUser(userid);
-            return ResponseEntity.ok(user);
-        } catch (Exception e) {
-            UserResponse userResponse = new UserResponse();
             userResponse.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(userResponse);
         }
