@@ -8,6 +8,7 @@ import Home2 from './Home2';
 import Login from './Login';
 import Register from './Register';
 import Update from './Update';
+import LoginWithPic from "./LoginWithPic"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/Login" element={<Login/>}></Route>
         <Route path="/Register" element={<Register/>}></Route>
         <Route path="/Update" element={<Update/>}></Route>
+        <Route path="/LoginWithPic" element={<LoginWithPic/>}></Route>
       </Routes>
     </Router>
     <h1> Welcome to the React App! </h1>

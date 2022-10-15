@@ -7,7 +7,7 @@ function Header(props){
     const[isExist,setisExist] = useState(false);
 
     useEffect(()=>{
-        if(localStorage.getItem("token") != '' && localStorage.getItem("token") != undefined){
+        if(localStorage.getItem("token") != "" && localStorage.getItem("token") != null){
             setisExist(true);
         }else{
             setisExist(false)
@@ -23,6 +23,7 @@ function Header(props){
             <li className={props.current == "Login" ? "isActive" : ""}><a href="Login">Login</a></li>
             <li className={props.current == "Register" ? "isActive" : ""}><a href="Register">Register</a></li>
             <li className={props.current == "Update" ? "isActive" : ""}><a href="Update">Update</a></li>
+            <li className={props.current == "LoginWithPic" ? "isActive" : ""}><a href="LoginWithPic">Login With Pic</a></li>
             {isExist?<li><a href="#">Logout</a></li>:null}
 
         </ul>

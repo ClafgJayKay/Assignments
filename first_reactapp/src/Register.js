@@ -13,7 +13,7 @@ function Register(){
         
         let anObj = {"name": name, "email": email, "password": password, "address": address, "mobilenumber": mobilenumber}
         console.log(name + " - " + email + " - " + password + " - " + address + " - " + mobilenumber);
-        fetch("http://localhost:8080/createUser",
+        fetch("http://localhost:8080/register",
         {
             method:"POST",
             body:JSON.stringify(anObj),
