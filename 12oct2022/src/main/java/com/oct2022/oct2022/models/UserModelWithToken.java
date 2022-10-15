@@ -17,28 +17,13 @@ public class UserModelWithToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer userid;
     String name;
     String email;
     String address;
     String mobilenumber;
     @JsonIgnore
-    String token;
     String password;
-
-
-    public UserModelWithToken(String name, String mobilenumber, String email, String address, String password) {
-        this.name = name;
-        this.mobilenumber = mobilenumber;
-        this.email = email;
-        this.address = address;
-        this.password = password;
-    }
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
+    String token;
+    String profile_pic;
 }

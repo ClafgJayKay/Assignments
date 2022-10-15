@@ -1,5 +1,6 @@
 package com.oct2022.oct2022.controllers;
 
+import com.oct2022.oct2022.configuration.CustomException;
 import com.oct2022.oct2022.models.UserModelWithToken;
 import com.oct2022.oct2022.repository.UserRepository;
 import com.oct2022.oct2022.response.UserResponse;
@@ -10,14 +11,23 @@ import com.oct2022.oct2022.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+import org.apache.commons.io.IOUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 @RestController
 public class UserController {
     @Autowired
     UserService userService;
+
+    String imagePath = "C:\\Users\\phang\\Documents\\GitHub\\Assignments\\12oct2022\\src\\main\\java\\com\\oct2022\\oct2022\\images\\";
 
     @GetMapping("/user")
     public ResponseEntity<?> getAllUsers(){
@@ -27,31 +37,19 @@ public class UserController {
         return ResponseEntity.ok(myList);
     }
     @GetMapping("/user/{userid}")
-    public ResponseEntity<?> getUser(@PathVariable Integer userid) throws Exception {
+    public ResponseEntity<?> retrieveOneUser(@PathVariable Integer userid) throws Exception {
         try {
-            UserModelWithToken userModelWithToken = userService.retrieveUser(userid);
-            return ResponseEntity.ok(userModelWithToken);
+            UserModelWithToken user = userService.retrieveOneUser(userid);
+            return ResponseEntity.ok(user);
         } catch (Exception e) {
             UserResponse userResponse = new UserResponse();
             userResponse.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(userResponse);
         }
     }
-    @PostMapping("/login")
-    public ResponseEntity<?> loginValid(@RequestBody UserRequest userRequest) {
-        UserResponse userResponse = new UserResponse();
-        try {
-            Optional<UserModelWithToken> userModelWithToken = userService.loginValidation(userRequest);
 
-            return ResponseEntity.ok(userModelWithToken);
-        } catch (Exception e) {
-            userResponse.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(userResponse);
-        }
-    }
-
-    @PostMapping("/createUser")
-    public ResponseEntity<?> createUser(@RequestBody UserRequest userRequest) {
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody UserRequest userRequest) {
         UserResponse userResponse = new UserResponse();
         try {
             userService.createUser(userRequest);
@@ -80,20 +78,20 @@ public class UserController {
         UserResponse userResponse = new UserResponse();
         try{
             userService.updateUser(userid, userRequest);
-            userResponse.setMessage("User has been updated");
+            userResponse.setMessage("User info updated");
             return ResponseEntity.ok(userResponse);
         }catch (Exception e){
             userResponse.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(userResponse);
         }
     }
-    @PostMapping("/loginwithToken")
-    public ResponseEntity<?> loginwithToken(@RequestBody UserRequest userRequest){
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserRequest userRequest){
         UserResponse userResponse = new UserResponse();
         try{
-            UserModelWithToken userModelWithToken = userService.loginwithToken(userRequest);
-            userResponse.setMessage("Login success");
-            return ResponseEntity.ok(userModelWithToken);
+            UserModelWithToken user = userService.login(userRequest);
+            userResponse.setMessage("Logged in successfully");
+            return ResponseEntity.ok(user);
         }catch (Exception e){
             userResponse.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(userResponse);
@@ -112,4 +110,32 @@ public class UserController {
         }
     }
 
+    @PostMapping("/uploadImage")
+    public ResponseEntity<?> uploadImage(@RequestParam Integer userid, @RequestParam MultipartFile multipartFile) throws Exception {
+        UserResponse userResponse = new UserResponse();
+
+        System.out.println(userid + " " + multipartFile.getOriginalFilename());
+
+        FileOutputStream fileOutputStream = new FileOutputStream(imagePath + multipartFile.getOriginalFilename());
+        fileOutputStream.write(multipartFile.getBytes());
+        fileOutputStream.close();
+
+        userService.setUserProfilePic(userid, multipartFile.getOriginalFilename());
+
+        userResponse.setMessage("image uploaded successfully");
+        return ResponseEntity.ok(userResponse);
+    }
+
+    @GetMapping(value = "/getImage/{userid}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public byte[] getImage(@PathVariable Integer userid) throws Exception{
+
+        String fileName = userService.getUserProfilePic(userid);
+
+        System.out.println(imagePath + fileName);
+
+        FileInputStream fileInputStream = new FileInputStream(imagePath + fileName);
+//        fileInputStream.close();
+
+        return IOUtils.toByteArray(fileInputStream);
+    }
 }
