@@ -69,10 +69,10 @@ function Login(){
                             <h2>
                                 {errObj == "" ? "" : errObj}
                                 {Object.keys(output).length == 0 ? "" : <ul>
-                                    <li>id: {output.id}</li>
+                                    <li>id: {output.userid}</li>
                                     <li>email: {output.email}</li>
                                     <li>name: {output.name}</li>
-                                    <li>mobile: {output.mobile}</li>
+                                    <li>mobile: {output.mobilenumber}</li>
                                     <li>address: {output.address}</li>
                                 </ul>}     
                             </h2>
