@@ -99,16 +99,11 @@ public class UserController {
         }
     }
     @PostMapping("/logout/{userid}")
-    public ResponseEntity<?> logout(@PathVariable Integer userid){
+    public ResponseEntity<?> logout(@PathVariable Integer userid) throws Exception{
         UserResponse userResponse = new UserResponse();
-        try{
             userService.logout(userid);
             userResponse.setMessage("User logged out successfully");
             return ResponseEntity.ok(userResponse);
-        }catch(Exception e){
-            userResponse.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(userResponse);
-        }
     }
 
     @PostMapping("/uploadImage")
@@ -116,10 +111,14 @@ public class UserController {
         UserResponse userResponse = new UserResponse();
 
         System.out.println(userid + " " + multipartFile.getOriginalFilename());
-
-        FileOutputStream fileOutputStream = new FileOutputStream(imagePath + multipartFile.getOriginalFilename());
-        fileOutputStream.write(multipartFile.getBytes());
-        fileOutputStream.close();
+        try{
+            FileOutputStream fileOutputStream = new FileOutputStream(imagePath + multipartFile.getOriginalFilename());
+            fileOutputStream.write(multipartFile.getBytes());
+            fileOutputStream.close();
+        }catch (Exception e){
+            userResponse.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(userResponse);
+        }
 
         userService.setUserProfilePic(userid, multipartFile.getOriginalFilename());
 
@@ -131,12 +130,8 @@ public class UserController {
     public byte[] getImage(@PathVariable Integer userid) throws Exception{
 
         String fileName = userService.getUserProfilePic(userid);
-
         System.out.println(imagePath + fileName);
-
         FileInputStream fileInputStream = new FileInputStream(imagePath + fileName);
-//        fileInputStream.close();
-
         return IOUtils.toByteArray(fileInputStream);
     }
 }

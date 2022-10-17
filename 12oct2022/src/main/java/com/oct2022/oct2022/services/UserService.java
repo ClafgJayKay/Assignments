@@ -29,16 +29,7 @@ public class UserService {
     public UserModelWithToken retrieveOneUser(Integer userid) {
         return userRepo.findById(userid).get();
     }
-
-    public Optional<UserModelWithToken> loginValidation(UserRequest userRequest) throws Exception {
-        Optional<UserModelWithToken> user = userRepo.getUserByEmail(userRequest.getEmail());
-        if (user.isPresent()) {
-            return user;
-        } else {
-            throw new Exception("Login unsuccessful");
-        }
-    }
-
+    
     public void createUser(UserRequest userRequest) throws Exception {
         Optional<UserModelWithToken> user = userRepo.getUserByEmail(userRequest.getEmail());
         if (user.isPresent()) {
@@ -107,7 +98,7 @@ public class UserService {
 
                 return user.get();
             } else {
-                throw new Exception("Error in user details");
+                throw new Exception("Error with user info");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,7 +143,7 @@ public class UserService {
                     throw new CustomException("token error");
                 }
             } else {
-                throw new CustomException("Error in token validation");
+                throw new CustomException("Error validating token");
             }
     }
 
