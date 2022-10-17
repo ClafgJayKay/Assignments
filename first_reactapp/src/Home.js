@@ -1,9 +1,25 @@
 import Footer from "./Footer";
 import Header from "./Header";
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import { useNavigate } from "react-router-dom";
+import { isTokenExpired } from "./HTTPFetch";
 
 
 function Home(){
+        let navigate = useNavigate();
+
+        // useEffect(() => {
+        //     console.log(isTokenExpired())
+        //     let indi = isTokenExpired()
+    
+        //     if(indi == true){
+        //         console.log("token active")
+        //     }else{
+        //         console.log("token not active")
+        //         navigate("/LoginWithPic")
+        //     }
+        // }, [])
+        
         const showLastName=(obj)=>{
         console.log(obj.last_name);}
 

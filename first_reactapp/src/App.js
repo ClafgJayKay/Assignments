@@ -9,6 +9,7 @@ import Login from './Login';
 import Register from './Register';
 import Update from './Update';
 import LoginWithPic from "./LoginWithPic"
+import Logout from './Logout';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/Register" element={<Register/>}></Route>
         <Route path="/Update" element={<Update/>}></Route>
         <Route path="/LoginWithPic" element={<LoginWithPic/>}></Route>
+        <Route path="/Logout" element={<Logout/>}></Route>
       </Routes>
     </Router>
     <h1> Welcome to the React App! </h1>

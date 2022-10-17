@@ -29,7 +29,7 @@ public class UserService {
     public UserModelWithToken retrieveOneUser(Integer userid) {
         return userRepo.findById(userid).get();
     }
-    
+
     public void createUser(UserRequest userRequest) throws Exception {
         Optional<UserModelWithToken> user = userRepo.getUserByEmail(userRequest.getEmail());
         if (user.isPresent()) {
@@ -111,7 +111,7 @@ public class UserService {
         if (user.isPresent()) {
             userRepo.setToken("", user.get().getUserid());
         } else {
-            throw new CustomException("Error in logout");
+            throw new CustomException("Error when logout");
         }
     }
 

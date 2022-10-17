@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
+import { postRequestWithoutHeader } from "./HTTPFetch";
 
 function LoginWithPic(){
 
@@ -9,29 +11,26 @@ function LoginWithPic(){
     const [errorObj, setErrorObj] = useState("");
     const [image, setImage] = useState();
 
+    let navigate = useNavigate();
+
     const loginBtn = () =>{
         
         let anObj = {"email": email, "password": password}
 
-        fetch("http://localhost:8080/login",
-        {
-            method:"POST",
-            body:JSON.stringify(anObj),
-            headers:{
-                'Content-Type': 'application/json'
-            },
-        })
+        postRequestWithoutHeader("login", anObj)
         .then(res => {
             if(!res.ok){
                 setOutput({});
                 throw res;
             }else{
                 setErrorObj("");
-                res.json().then(res2 => {console.log(res2); setOutput(res2);})
+                res.json().then(res2 => {console.log(res2); setOutput(res2);
+                    localStorage.setItem("userid", res2.id); localStorage.setItem("token", res2.token); })
+                navigate("/Contacts")
             }
         })
-        .catch(error => {
-            error.json().then(e => {
+        .catch(err => {
+            err.json().then(e => {
                 setErrorObj(e.message)
             })
         })
