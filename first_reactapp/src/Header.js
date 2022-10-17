@@ -1,12 +1,9 @@
 import './App.css';
 import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
 
 
 function Header(props){
-    // let name = 'this is variable';
     const[isExist,setisExist] = useState(false);
-    let navigate = useNavigate();
 
 
     useEffect(()=>{
