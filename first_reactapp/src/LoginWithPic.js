@@ -25,7 +25,7 @@ function LoginWithPic(){
             }else{
                 setErrorObj("");
                 res.json().then(res2 => {console.log(res2); setOutput(res2);
-                    localStorage.setItem("userid", res2.id); localStorage.setItem("token", res2.token); })
+                    localStorage.setItem("userid", res2.userid); localStorage.setItem("token", res2.token); })
                 navigate("/Home")
             }
         })
