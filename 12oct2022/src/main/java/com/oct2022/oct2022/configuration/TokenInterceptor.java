@@ -21,6 +21,10 @@ public class TokenInterceptor implements HandlerInterceptor {
             String currentUrl = request.getRequestURL().toString();
             System.out.println(currentUrl);
 
+            if(request.getMethod().equals("OPTIONS")){
+                return true;
+            }
+
             if(currentUrl.contains("login") || currentUrl.contains("register") || currentUrl.contains("Image")){
                 System.out.println("in url contains login now");
                 return true;
