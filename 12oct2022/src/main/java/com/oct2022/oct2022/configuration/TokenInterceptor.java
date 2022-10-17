@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 public class TokenInterceptor implements HandlerInterceptor {
     @Autowired
-    UserService userService;
+    UserS userService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

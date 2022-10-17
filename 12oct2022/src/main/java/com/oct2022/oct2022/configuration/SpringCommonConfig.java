@@ -12,8 +12,10 @@ public class SpringCommonConfig implements WebMvcConfigurer {
     TokenInterceptor token;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:3000")
+        registry.addMapping("/**")
+                .allowedOrigins("*")
                 .allowedHeaders("*")
+                .allowedMethods("*")
                 .exposedHeaders("*")
                 .maxAge(3600);
     }
