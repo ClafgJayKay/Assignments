@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 public class TokenInterceptor implements HandlerInterceptor {
     @Autowired
-    UserS userService;
+    UserService userService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -32,19 +32,19 @@ public class TokenInterceptor implements HandlerInterceptor {
 
             System.out.println("not in url contains login");
             String token = request.getHeader("token");
-            String user_id = request.getHeader("user_id");
+            String userid = request.getHeader("userid");
 
             if(token == null || token.isEmpty()){
                 throw new Exception("token is empty");
             }
 
-            if(user_id == null || user_id.isEmpty()){
+            if(userid == null || userid.isEmpty()){
                 throw new Exception("id is empty");
             }
 
             userService.isTokenExpired(token);
 
-            if(userService.validateToken(Integer.parseInt(user_id), token)){
+            if(userService.validateToken(Integer.parseInt(userid), token)){
                 return true;
             }else{
                 return false;

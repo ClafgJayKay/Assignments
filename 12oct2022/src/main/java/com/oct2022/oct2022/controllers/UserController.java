@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@CrossOrigin(origins = "*", maxAge = 3600, allowCredentials = "false")
 @RestController
 public class UserController {
     @Autowired
